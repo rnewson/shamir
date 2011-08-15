@@ -15,12 +15,7 @@
 -module(shamir).
 
 -export([share/3, recover/1]).
-
--record(share, {
-    threshold,
-    x,
-    y
-}).
+-include("shamir.hrl").
 
 share(Secret, Threshold, Count) when is_binary(Secret) ->
     share(binary_to_list(Secret), Threshold, Count);

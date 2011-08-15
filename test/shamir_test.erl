@@ -13,10 +13,17 @@
 %% limitations under the License.
 
 -module(shamir_test).
+-include("shamir.hrl").
 -include_lib("eunit/include/eunit.hrl").
 
-shamir_test() ->
-    Secret = <<"hello">>,
-    Shares = shamir:share(Secret, 3, 4),
-    RecoveredSecret= shamir:recover(Shares),
+hello_test() ->
+    shamir(<<"hello">>, 3, 4).
+
+key_test() ->
+    shamir(crypto:rand_bytes(32), 3, 15).
+
+shamir(Secret, Threshold, Count) ->
+    Shares = shamir:share(Secret, Threshold, Count),
+    ?assertEqual(Count, length(lists:usort([Y || #share{y=Y} <- Shares]))),
+    RecoveredSecret= shamir:recover(lists:sublist(Shares, Threshold)),
     ?assertEqual(Secret, RecoveredSecret).

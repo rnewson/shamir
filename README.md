@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/rnewson/shamir.png)](http://travis-ci.org/rnewson/shamir)
+
 <h1>Shamir</h1>
 
 <p>
